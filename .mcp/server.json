@@ -1,11 +1,11 @@
 {
-  "description": "An MCP server using the .NET MCP SDK.",
-  "name": "io.github.joelverhagen/Knapcode.SampleMcpServer",
+  "description": "<your description here>",
+  "name": "io.github.<your GitHub username here>/<your repo name>",
   "packages": [
     {
       "registry_name": "nuget",
-      "name": "Knapcode.SampleMcpServer",
-      "version": "0.0.1-beta",
+      "name": "<your package ID here>",
+      "version": "0.1.0-beta",
       "package_arguments": [
         {
           "description": "Start the MCP server tool in server mode",
@@ -26,10 +26,10 @@
     }
   ],
   "repository": {
-    "url": "https://github.com/joelverhagen/Knapcode.SampleMcpServer",
+    "url": "https://github.com/<your GitHub username here>/<your repo name>",
     "source": "github"
   },
   "version_detail": {
-    "version": "0.0.1-beta"
+    "version": "0.1.0-beta"
   }
 }

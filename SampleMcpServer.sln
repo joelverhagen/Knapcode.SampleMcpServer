@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knapcode.SampleMcpServer", "Knapcode.SampleMcpServer.csproj", "{A75D936E-CDB0-DF07-EB8A-875DACFB1D3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMcpServer", "SampleMcpServer.csproj", "{A75D936E-CDB0-DF07-EB8A-875DACFB1D3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
