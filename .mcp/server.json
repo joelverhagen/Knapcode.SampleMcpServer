@@ -4,7 +4,7 @@
   "packages": [
     {
       "registry_name": "nuget",
-      "name": "<your package ID here>",
+      "name": "SampleMcpServer",
       "version": "0.1.0-beta",
       "package_arguments": [
         {
