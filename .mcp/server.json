@@ -1,0 +1,35 @@
+{
+  "description": "An MCP server using the .NET MCP SDK.",
+  "name": "io.github.joelverhagen/Knapcode.SampleMcpServer",
+  "packages": [
+    {
+      "registry_name": "nuget",
+      "name": "Knapcode.SampleMcpServer",
+      "version": "0.0.1-beta",
+      "package_arguments": [
+        {
+          "description": "Start the MCP server tool in server mode",
+          "is_required": true,
+          "format": "string",
+          "value": "start-mcp",
+          "default": "start-mcp",
+          "type": "positional",
+          "value_hint": "start-mcp"
+        }
+      ],
+      "environment_variables": [
+        {
+          "description": "The maximum number to return from the random number generator",
+          "name": "MAX_RANDOM_NUMBER"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/joelverhagen/Knapcode.SampleMcpServer",
+    "source": "github"
+  },
+  "version_detail": {
+    "version": "0.0.1-beta"
+  }
+}
