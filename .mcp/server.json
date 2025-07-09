@@ -1,5 +1,5 @@
 {
-  "description": "An MCP server using the MCP C# SDK.",
+  "description": "A sample MCP server using the MCP C# SDK. Generates random numbers and random weather.",
   "name": "io.github.joelverhagen/Knapcode.SampleMcpServer",
   "packages": [
     {
