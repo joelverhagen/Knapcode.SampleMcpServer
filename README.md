@@ -1,4 +1,4 @@
-# MCP Server
+# MCP Server - Knapcode.SampleMcpServer
 
 This README was created using the C# MCP server template project. It demonstrates how you can easily create an MCP server using C# and then package it in a NuGet package.
 
