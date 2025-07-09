@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "Knapcode.SampleMcpServer": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--",
+        "mcp",
+        "start"
+      ],
+      "env": {
+        "WEATHER_CHOICES": "sunny,humid,freezing"
+      }
+    }
+  }
+}
