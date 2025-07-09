@@ -5,6 +5,8 @@
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <ContinuousIntegrationBuild Condition="'$(Configuration)' == 'Release'">true</ContinuousIntegrationBuild>
     <Version>0.4.0-beta</Version>
 
     <!-- Set up the NuGet package to be an MCP server -->
