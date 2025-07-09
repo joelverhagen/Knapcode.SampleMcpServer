@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.10724.212 main
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knapcode.SampleMcpServer", "Knapcode.SampleMcpServer.csproj", "{33877DDA-7C9B-D52C-FB6F-2EDF4FDAB019}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33877DDA-7C9B-D52C-FB6F-2EDF4FDAB019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33877DDA-7C9B-D52C-FB6F-2EDF4FDAB019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33877DDA-7C9B-D52C-FB6F-2EDF4FDAB019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33877DDA-7C9B-D52C-FB6F-2EDF4FDAB019}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01968268-C6CD-41F3-BFE1-E46EAB7BEC8E}
+	EndGlobalSection
+EndGlobal
