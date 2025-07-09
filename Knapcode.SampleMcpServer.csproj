@@ -18,6 +18,8 @@
     <PackageId>Knapcode.SampleMcpServer</PackageId>
     <PackageTags>AI; MCP; server; stdio</PackageTags>
     <Description>An MCP server using the MCP C# SDK.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <!-- Include additional files for browsing the MCP server. -->
