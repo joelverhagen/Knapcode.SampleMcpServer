@@ -5,15 +5,17 @@
     {
       "registry_name": "nuget",
       "name": "Knapcode.SampleMcpServer",
-      "version": "0.5.0-beta",
+      "version": "0.6.0-beta",
       "package_arguments": [
         {
           "type": "positional",
-          "value": "mcp"
+          "value": "mcp",
+          "value_hint": "mcp"
         },
         {
           "type": "positional",
-          "value": "start"
+          "value": "start",
+          "value_hint": "start"
         }
       ],
       "environment_variables": [
@@ -36,6 +38,6 @@
     "source": "github"
   },
   "version_detail": {
-    "version": "0.5.0-beta"
+    "version": "0.6.0-beta"
   }
 }
