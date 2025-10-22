@@ -36,6 +36,9 @@ jobs:
         run: |
           cd ${{ runner.temp }}
 
+          # Show go version
+          go version
+
           # Install Microsoft Go
           Invoke-WebRequest `
               https://raw.githubusercontent.com/microsoft/go-infra/refs/heads/main/goinstallscript/powershell/go-install.ps1 `
@@ -53,7 +56,7 @@ jobs:
           # Run the tool
           ./bin/mcp-publisher.exe --help
 
-          # Show go go-version
+          # Show go version
           go version
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
