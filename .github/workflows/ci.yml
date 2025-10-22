@@ -36,6 +36,7 @@ jobs:
         with:
           service_account: "cloud-sign-sa@cloud-signing-473716.iam.gserviceaccount.com"
           workload_identity_provider: "projects/880886550145/locations/global/workloadIdentityPools/github/providers/my-repo"
+          export_environment_variables: true
 
       - shell: pwsh
         run: |
