@@ -31,6 +31,12 @@ jobs:
         with:
           name: Knapcode.SampleMcpServer
           path: ./artifacts
+
+      - uses: "google-github-actions/auth@v3"
+        with:
+          service_account: "cloud-sign-sa@cloud-signing-473716.iam.gserviceaccount.com"
+          workload_identity_provider: "projects/880886550145/locations/global/workloadIdentityPools/github/providers/my-repo"
+
       - name: Clone MCP Registry and build publisher tool
         shell: pwsh
         run: |
@@ -58,6 +64,7 @@ jobs:
 
           # Show go version
           go version
+
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
         id: login
