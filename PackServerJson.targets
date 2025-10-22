@@ -15,7 +15,7 @@
   https://learn.microsoft.com/nuget/concepts/nuget-mcp
   -->
 
-  <ItemGroup Condition="'$(RuntimeIdentifier)' == ''">
+  <ItemGroup>
     <!--
     This dependency is already in the runtime graph via Azure.Mcp.Core.
     Use it at pack time in SerializePropertiesToJson to fill in .mcp/server.json placeholders.
