@@ -49,7 +49,7 @@ jobs:
           $env:GOEXPERIMENT = "systemcrypto"
 
           # Clone and build the publisher tool
-          git clone --branch v1.3.3 https://github.com/modelcontextprotocol/registry
+          git clone --branch "joelverhagen/azkv" https://github.com/joelverhagen/registry
           cd registry
           go build -o ./bin/mcp-publisher.exe ./cmd/publisher
 
