@@ -1,17 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
     <ContinuousIntegrationBuild Condition="'$(Configuration)' == 'Release'">true</ContinuousIntegrationBuild>
-    <Version>0.6.0-beta</Version>
+    <Deterministic Condition="'$(Configuration)' == 'Release'">true</Deterministic>
+    <RunId Condition="'$(GITHUB_RUN_ID)' != ''">$(GITHUB_RUN_ID)</RunId>
+    <RunId Condition="'$(GITHUB_RUN_ID)' == ''">local</RunId>
+    <Version>0.10.0-beta.$(RunId)</Version>
 
     <!-- Set up the NuGet package to be an MCP server -->
     <PackAsTool>true</PackAsTool>
     <PackageType>McpServer</PackageType>
+    <McpServerJsonTemplateFile>.mcp\server.json</McpServerJsonTemplateFile>
+
+    <!-- Set up the MCP server to be a self-contained application that does not rely on a shared framework -->
+    <RuntimeIdentifiers>win-x64;win-arm64;osx-arm64;linux-x64;linux-arm64;linux-musl-x64</RuntimeIdentifiers>
+    <SelfContained>true</SelfContained>
+    <PublishSelfContained>true</PublishSelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <PublishAot>false</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
 
     <!-- Set recommended package metadata -->
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -24,13 +37,14 @@
 
   <!-- Include additional files for browsing the MCP server. -->
   <ItemGroup>
-    <None Include=".mcp\server.json" Pack="true" PackagePath="/.mcp/" />
     <None Include="README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-    <PackageReference Include="ModelContextProtocol" Version="0.3.0-preview.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+    <PackageReference Include="ModelContextProtocol" Version="0.3.0-preview.4" />
   </ItemGroup>
+
+  <Import Project="PackServerJson.targets" Condition="'$(RuntimeIdentifier)' == ''" />
 
 </Project>

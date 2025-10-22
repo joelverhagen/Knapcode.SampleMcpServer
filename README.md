@@ -94,3 +94,10 @@ Alternatively, you can configure your VS Code user settings to use your local pr
   }
 }
 ```
+
+<!-- 
+MCP Registry verification
+Used for https://github.com/modelcontextprotocol/registry/blob/main/docs/guides/publishing/publish-server.md
+mcp-name: io.github.joelverhagen/Knapcode.SampleMcpServer
+mcp-name: com.joelverhagen.mcp/Knapcode.SampleMcpServer
+-->

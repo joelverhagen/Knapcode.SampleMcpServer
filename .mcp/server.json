@@ -1,24 +1,28 @@
 {
-  "description": "A sample MCP server using the MCP C# SDK. Generates random numbers and random weather.",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "description": "$(PackageDescription)",
   "name": "io.github.joelverhagen/Knapcode.SampleMcpServer",
+  "version": "$(PackageVersion)",
   "packages": [
     {
-      "registry_name": "nuget",
-      "name": "Knapcode.SampleMcpServer",
-      "version": "0.6.0-beta",
-      "package_arguments": [
+      "registryType": "nuget",
+      "identifier": "$(PackageId)",
+      "version": "$(PackageVersion)",
+      "registryBaseUrl": "https://api.nuget.org",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
         {
           "type": "positional",
-          "value": "mcp",
-          "value_hint": "mcp"
+          "value": "mcp"
         },
         {
           "type": "positional",
-          "value": "start",
-          "value_hint": "start"
+          "value": "start"
         }
       ],
-      "environment_variables": [
+      "environmentVariables": [
         {
           "name": "WEATHER_CHOICES",
           "value": "{weather_choices}",
@@ -34,10 +38,7 @@
     }
   ],
   "repository": {
-    "url": "https://github.com/joelverhagen/Knapcode.SampleMcpServer",
+    "url": "$(RepositoryUrl)",
     "source": "github"
-  },
-  "version_detail": {
-    "version": "0.6.0-beta"
   }
 }
