@@ -37,6 +37,10 @@ jobs:
           service_account: "cloud-sign-sa@cloud-signing-473716.iam.gserviceaccount.com"
           workload_identity_provider: "projects/880886550145/locations/global/workloadIdentityPools/github/providers/my-repo"
 
+      - shell: pwsh
+        run: |
+          gcloud auth list
+
       - name: Clone MCP Registry and build publisher tool
         shell: pwsh
         run: |
