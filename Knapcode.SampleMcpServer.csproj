@@ -11,7 +11,7 @@
     <RunNumber>$(GITHUB_RUN_NUMBER)</RunNumber>
     <RunNumber Condition="'$(RunNumber)' == ''">local</RunNumber>
     <RunAttemptSuffix>.$(GITHUB_RUN_ATTEMPT)</RunAttemptSuffix>
-    <RunAttemptSuffix Condition="'$(RunAttemptSuffix)' == '.1' || '$(RunAttemptSuffix)' == '.'"></RunAttemptSuffix>
+    <RunAttemptSuffix Condition="'$(RunAttemptSuffix)' == '.1' or '$(RunAttemptSuffix)' == '.'"></RunAttemptSuffix>
     <Version>0.10.0-beta.$(RunNumber)$(RunAttemptSuffix)</Version>
 
     <!-- Set up the NuGet package to be an MCP server -->
