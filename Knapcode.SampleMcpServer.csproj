@@ -8,9 +8,11 @@
 
     <ContinuousIntegrationBuild Condition="'$(Configuration)' == 'Release'">true</ContinuousIntegrationBuild>
     <Deterministic Condition="'$(Configuration)' == 'Release'">true</Deterministic>
-    <RunId Condition="'$(GITHUB_RUN_ID)' != ''">$(GITHUB_RUN_ID)</RunId>
-    <RunId Condition="'$(GITHUB_RUN_ID)' == ''">local</RunId>
-    <Version>0.10.0-beta.$(RunId)</Version>
+    <RunNumber>$(GITHUB_RUN_NUMBER)</RunNumber>
+    <RunNumber Condition="'$(RunNumber)' == ''">local</RunNumber>
+    <RunAttemptSuffix>.$(GITHUB_RUN_ATTEMPT)</RunAttemptSuffix>
+    <RunAttemptSuffix Condition="'$(RunAttemptSuffix)' == '.1' || '$(RunAttemptSuffix)' == '.'"></RunAttemptSuffix>
+    <Version>0.10.0-beta.$(RunNumber)$(RunAttemptSuffix)</Version>
 
     <!-- Set up the NuGet package to be an MCP server -->
     <PackAsTool>true</PackAsTool>
