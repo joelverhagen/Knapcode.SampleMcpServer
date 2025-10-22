@@ -71,7 +71,7 @@ jobs:
           ./bin/mcp-publisher.exe login dns google-kms --domain mcp.joelverhagen.com -resource projects/cloud-signing-473716/locations/global/keyRings/fellowship/cryptoKeys/bilbo/cryptoKeyVersions/1
 
           # Publish
-          ./bin/mcp-publisher.exe publish ./artifacts/server.json
+          ./bin/mcp-publisher.exe publish ${{ github.workspace }}/artifacts/server.json
 
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
