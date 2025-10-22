@@ -31,10 +31,29 @@ jobs:
         with:
           name: Knapcode.SampleMcpServer
           path: ./artifacts
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Clone MCP Registry and build publisher tool
+        run: |
+          # Clone the registry repository to a temp directory
+          git clone https://github.com/modelcontextprotocol/registry.git ${{ runner.temp }}/mcp-registry
+          cd ${{ runner.temp }}/mcp-registry
+
+          # Checkout the specific tag
+          git checkout v1.3.3
+
+          # Build the cmd/publisher tool
+          cd cmd/publisher
+          go build -o publisher .
+
+          # Run the publisher tool with --help
+          ./publisher --help
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
         id: login
         with:
           user: joelverhagen
-      - name: NuGet push
-        run: dotnet nuget push artifacts/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+#       - name: NuGet push
+#        run: dotnet nuget push artifacts/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
