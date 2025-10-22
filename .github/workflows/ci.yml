@@ -39,9 +39,13 @@ jobs:
           export_environment_variables: true
           create_credentials_file: true
 
-      - shell: pwsh
-        run: |
-          gcloud auth list
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v3'
+        with:
+          version: '>= 363.0.0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
 
       - name: Clone MCP Registry and build publisher tool
         shell: pwsh
