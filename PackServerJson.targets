@@ -89,6 +89,13 @@
       Lines="@(_McpServerJsonFileContentLine)"
       Overwrite="true"
       WriteOnlyWhenDifferent="true" />
+
+    <WriteLinesToFile
+      File="$(OutputServerJsonPath)"
+      Lines="@(_McpServerJsonFileContentLine)"
+      Overwrite="true"
+      WriteOnlyWhenDifferent="true"
+      Condition="'$(OutputServerJsonPath)' != ''" />
       
     <ItemGroup>
       <ItemWrites Include="$(_UpdatedServerJsonPath)" />
