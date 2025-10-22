@@ -31,25 +31,27 @@ jobs:
         with:
           name: Knapcode.SampleMcpServer
           path: ./artifacts
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.25"
       - name: Clone MCP Registry and build publisher tool
+        shell: pwsh
         run: |
-          # Clone the registry repository to a temp directory
-          git clone https://github.com/modelcontextprotocol/registry.git ${{ runner.temp }}/mcp-registry
-          cd ${{ runner.temp }}/mcp-registry
+          cd ${{ runner.temp }}
 
-          # Checkout the specific tag
-          git checkout v1.3.3
+          # Install Microsoft Go
+          Invoke-WebRequest `
+              https://raw.githubusercontent.com/microsoft/go-infra/refs/heads/main/goinstallscript/powershell/go-install.ps1 `
+              -OutFile go-install.ps1
+          ./go-install.ps1
 
-          # Build the cmd/publisher tool
-          cd cmd/publisher
-          go build -o publisher .
+          # Enable compliant crypto
+          $env:GOEXPERIMENT = "systemcrypto"
 
-          # Run the publisher tool with --help
-          ./publisher --help
+          # Clone and build the publisher tool
+          git clone --branch v1.3.3 https://github.com/modelcontextprotocol/registry
+          cd registry
+          go build -o ./bin/mcp-publisher.exe ./cmd/publisher
+
+          # Run the tool
+          ./bin/mcp-publisher.exe --help
       - name: NuGet login (OIDC → temp API key)
         uses: NuGet/login@v1
         id: login
