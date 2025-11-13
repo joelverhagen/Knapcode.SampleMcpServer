@@ -31,26 +31,13 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release -o ./artifacts /p:OutputServerJsonPath=./artifacts/server.json
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Knapcode.SampleMcpServer
-          path: ./artifacts
-
-      - uses: "google-github-actions/auth@v3"
-        with:
-          service_account: "cloud-sign-sa@cloud-signing-473716.iam.gserviceaccount.com"
-          workload_identity_provider: "projects/880886550145/locations/global/workloadIdentityPools/github/providers/my-repo"
-
       - name: Clone MCP Registry and build publisher tool
         shell: pwsh
         run: |
           cd ${{ runner.temp }}
 
-          # Show go version
-          go version
-
           # Install Microsoft Go
+          # This go-install.ps1 script could be checked into your source repository
           Invoke-WebRequest `
               https://raw.githubusercontent.com/microsoft/go-infra/refs/heads/main/goinstallscript/powershell/go-install.ps1 `
               -OutFile go-install.ps1
@@ -60,23 +47,16 @@ jobs:
           $env:GOEXPERIMENT = "systemcrypto"
 
           # Clone and build the publisher tool
-          git clone --branch "joelverhagen/azkv" https://github.com/joelverhagen/registry
+          git clone --branch "v1.3.7" https://github.com/modelcontextprotocol/registry
           cd registry
-          go build -o ./bin/mcp-publisher.exe ./cmd/publisher
+          go build -o ${{ runner.temp }}/mcp-publisher.exe ./cmd/publisher
 
-          # Run the tool
-          ./bin/mcp-publisher.exe --help
+          # show help for the tool to ensure it's working
+          ${{ runner.temp }}/mcp-publisher.exe --help
 
-          # Log in
-          ./bin/mcp-publisher.exe login dns google-kms --domain mcp.joelverhagen.com -resource projects/cloud-signing-473716/locations/global/keyRings/fellowship/cryptoKeys/bilbo/cryptoKeyVersions/1
-
-          # Publish
-          ./bin/mcp-publisher.exe publish ${{ github.workspace }}/artifacts/server.json
-
-      - name: NuGet login (OIDC → temp API key)
-        uses: NuGet/login@v1
-        id: login
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
         with:
-          user: joelverhagen
-#       - name: NuGet push
-#        run: dotnet nuget push artifacts/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+          client-id: ${{ secrets.KV_CLIENT_ID }}
+          tenant-id: ${{ secrets.KV_TENANT_ID }}
+          subscription-id: ${{ secrets.KV_SUBSCRIPTION_ID }}
