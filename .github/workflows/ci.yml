@@ -74,9 +74,11 @@ jobs:
         shell: pwsh
         run: |
           $packageId = "Knapcode.SampleMcpServer"
-          $packageFile = Get-ChildItem -Path ./artifacts -Filter "*.nupkg" | Select-Object -First 1
+          $packageFile = Get-ChildItem -Path ./artifacts -Filter "*.nupkg" | Sort-Object { $_.Name.Length } | Select-Object -First 1
           $packageFile = $packageFile.Name
           $version = $packageFile.Substring($packageId.Length + 1, $packageFile.Length - $packageId.Length - 1 - ".nupkg".Length)
+          "PACKAGE_VERSION=$version" >> $env:GITHUB_ENV
+          
           $url = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/$($version.ToLowerInvariant())/readme"
           $elapsed = 0; $interval = 10; $timeout = 300
           Write-Host "Checking for package README of $packageId $version."
@@ -95,3 +97,18 @@ jobs:
                   continue
               }
           }
+
+      - name: Publish to the MCP Registry
+        shell: pwsh
+        run: |
+          # log in using Key Vault
+          ${{ runner.temp }}/mcp-publisher.exe `
+              login dns azure-key-vault `
+              -vault "${{ secrets.KV_NAME }}" -key "${{ secrets.KV_KEY_NAME }}" `
+              -domain mcp.joelverhagen.com `
+              -registry https://staging.registry.modelcontextprotocol.io
+      
+          # publish the server.json
+          ${{ runner.temp }}/mcp-publisher.exe publish `
+              "./artifacts/server.json" `
+              -registry https://staging.registry.modelcontextprotocol.io
