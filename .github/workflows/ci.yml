@@ -31,6 +31,15 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release -o ./artifacts /p:OutputServerJsonPath=./artifacts/server.json
 
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: joelverhagen
+
+      - name: NuGet push
+        run: dotnet nuget push artifacts/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+
       - name: Clone MCP Registry and build publisher tool
         shell: pwsh
         run: |
@@ -60,3 +69,29 @@ jobs:
           client-id: ${{ secrets.KV_CLIENT_ID }}
           tenant-id: ${{ secrets.KV_TENANT_ID }}
           subscription-id: ${{ secrets.KV_SUBSCRIPTION_ID }}
+
+      - name: Wait for the NuGet package to be available
+        shell: pwsh
+        run: |
+          $packageId = "Knapcode.SampleMcpServer"
+          $packageFile = Get-ChildItem -Path ./artifacts -Filter "*.nupkg" | Select-Object -First 1
+          $packageFile = $packageFile.Name
+          $version = $packageFile.Substring($packageId.Length + 1, $packageFile.Length - $packageId.Length - 1 - ".nupkg".Length)
+          $url = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/$($version.ToLowerInvariant())/readme"
+          $elapsed = 0; $interval = 10; $timeout = 300
+          Write-Host "Checking for package README of $packageId $version."
+          while ($true) {
+              if ($elapsed -gt $timeout) {
+                  Write-Error "Package README is not available after $elapsed seconds. URL: $url"
+                  exit 1
+              }
+              try { 
+                  Invoke-WebRequest -Uri $url -ErrorAction Stop | Out-Null
+                  Write-Host "Package README is now available."
+                  break
+              } catch {
+                  Write-Host "Package README is not yet available. Elapsed time: $elapsed seconds."
+                  Start-Sleep -Seconds $interval; $elapsed += $interval
+                  continue
+              }
+          }
