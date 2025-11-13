@@ -102,7 +102,7 @@ jobs:
         shell: pwsh
         run: |
           # log in using Key Vault
-          $env:AZURE_TOKEN_CREDENTIALS = "AzurePowerShellCredential"
+          $env:AZURE_TOKEN_CREDENTIALS = "AzureCLICredential"
           ${{ runner.temp }}/mcp-publisher.exe `
               login dns azure-key-vault `
               -vault "${{ secrets.KV_NAME }}" -key "${{ secrets.KV_KEY_NAME }}" `
