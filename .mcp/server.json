@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
   "description": "$(PackageDescription)",
-  "name": "com.joelverhagen.mcp/Knapcode.SampleMcpServer",
+  "name": "com.joelverhagen.mcp/knapcode.samplemcpserver",
   "version": "$(PackageVersion)",
   "packages": [
     {
