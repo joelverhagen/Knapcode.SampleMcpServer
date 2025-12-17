@@ -2,6 +2,8 @@ name: Show GitHub OIDC token metadata
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: ["main"]
 
 jobs:
   job:
