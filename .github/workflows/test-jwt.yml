@@ -6,28 +6,14 @@ on:
 jobs:
   job:
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write
-
     steps:
-
-    - uses: actions/github-script@v8
-      id: script
-      name: Get Actions ID token
-      with:
-        debug: true
-        script: |
-          const token = process.env['ACTIONS_ID_TOKEN_REQUEST_TOKEN']
-          const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
-          core.setOutput('TOKEN', token.trim())
-          core.setOutput('IDTOKENURL', runtimeUrl.trim())
-          
     - name: Fetch and decode OIDC token
       run: |
         # Trade the internal Actions token for an OIDC token
         # Intentionally set the audience to a value no integration would accept
-        IDTOKEN=$(curl "${{ steps.script.outputs.IDTOKENURL }}&audience=TEST_ONLY" -H "Authorization: Bearer ${{ steps.script.outputs.TOKEN }}" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
+        IDTOKEN=$(curl "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=TEST_ONLY" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" -d "{}" | jq -r '.value')
         
         # Show only the first two parts of the JWT token -- metadata, not the secret signature!
         echo $IDTOKEN | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
