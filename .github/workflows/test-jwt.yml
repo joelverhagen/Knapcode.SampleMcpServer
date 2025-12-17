@@ -2,7 +2,7 @@ name: Show GitHub OIDC token metadata
 
 on:
   workflow_dispatch:
-  pull_request_target:
+  push:
     branches: ["main"]
 
 jobs:
@@ -21,3 +21,9 @@ jobs:
         
         # Show only the first two parts of the JWT token -- metadata, not the secret signature!
         echo $IDTOKEN | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
+    - name: NuGet login (OIDC → temp API key)
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: joelverhagen
+        token-service-url: https://dev.nugettest.org/api/v2/token
