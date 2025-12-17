@@ -15,6 +15,8 @@ jobs:
       run: |
         # Trade the internal Actions token for an OIDC token
         # Intentionally set the audience to a value no integration would accept
+        echo "Token: '$ACTIONS_ID_TOKEN_REQUEST_TOKEN'"
+        echo "URL: '$ACTIONS_ID_TOKEN_REQUEST_URL'"
         IDTOKEN=$(curl "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://decode-jwt" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r '.value')
         
         # Show only the first two parts of the JWT token -- metadata, not the secret signature!
