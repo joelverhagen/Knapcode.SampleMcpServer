@@ -2,6 +2,8 @@
 
 This README was created using the C# MCP server template project. It demonstrates how you can easily create an MCP server using C# and then package it in a NuGet package.
 
+
+
 See [aka.ms/nuget/mcp/guide](https://aka.ms/nuget/mcp/guide) for the full guide.
 
 ## Checklist before publishing to NuGet.org
