@@ -22,7 +22,7 @@ jobs:
         # Show only the first two parts of the JWT token -- metadata, not the secret signature!
         echo $IDTOKEN | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
     - name: NuGet login (OIDC → temp API key)
-      uses: joelverhagen/nuget-login@release
+      uses: NuGet/login@v1
       id: login
       with:
         user: jver
