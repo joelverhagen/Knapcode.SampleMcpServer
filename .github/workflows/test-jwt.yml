@@ -25,6 +25,6 @@ jobs:
       uses: joelverhagen/nuget-login@release
       id: login
       with:
-        user: joelverhagen
+        user: jver
         token-service-url: https://dev.nugettest.org/api/v2/token
         audience: https://dev.nugettest.org/
