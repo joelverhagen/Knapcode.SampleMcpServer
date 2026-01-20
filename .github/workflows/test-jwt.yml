@@ -27,6 +27,6 @@ jobs:
       uses: NuGet/login@v1
       id: login
       with:
-        user: joelverhagen5
+        user: jver
         token-service-url: https://int.nugettest.org/api/v2/token
         audience: https://int.nugettest.org/
