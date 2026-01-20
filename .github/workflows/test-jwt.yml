@@ -28,5 +28,5 @@ jobs:
       id: login
       with:
         user: jver
-        token-service-url: https://dev.nugettest.org/api/v2/token
-        audience: https://dev.nugettest.org/
+        token-service-url: https://int.nugettest.org/api/v2/token
+        audience: https://int.nugettest.org/
